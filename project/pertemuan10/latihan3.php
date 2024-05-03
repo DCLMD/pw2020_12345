@@ -1,21 +1,9 @@
 <?php
-// Koneksi ke DB & Pilih Database
-$conn = mysqli_connect('localhost', 'root', '', 'pw_043040023');
-
-// query isi tabel mahasiswa
-$result = mysqli_query($conn, "SELECT * FROM mahasiswa");
-
-// ubah data ke dalam array
-//$row = mysqli_fetch_row($result); // array numerik
-//$row = mysqli_fetch_assoc($result); // array associative
-//$row = mysqli_fetch_array($result); //keduanya
-$rows = [];
-while ($row = mysqli_fetch_assoc($result)) {
-  $rows[] = $row;
-}
+require 'function.php';
+$mahasiswa = query("SELECT * FROM mahasiswa");
 
 // tampung ke variabel mahasiswa
-$mahasiswa = $rows;
+// $mahasiswa = $rows;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,10 +21,7 @@ $mahasiswa = $rows;
     <tr>
       <th>#</th>
       <th>gambar</th>
-      <th>nik</th>
       <th>nama</th>
-      <th>alamat</th>
-      <th>jurusan</th>
       <th>aksi</th>
     </tr>
 
@@ -45,12 +30,9 @@ $mahasiswa = $rows;
       <tr>
         <td><?= $i++ ?></td>
         <td><img width="100" src="img/<?= $m['gambar']; ?>"></td>
-        <td><?= $m['nik']; ?></td>
         <td><?= $m['nama']; ?></td>
-        <td><?= $m['alamat']; ?></td>
-        <td><?= $m['jurusan']; ?></td>
         <td>
-          <a href="">ubah</a>|<a href="">hapus</a>
+          <a href="detil.php?id=<?= $m['id']; ?>">lihat detail</a>
         </td>
       </tr>
     <?php endforeach; ?>
